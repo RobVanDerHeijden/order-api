@@ -15,7 +15,7 @@ func main() {
 	router.Get("/hello", basicHandler)
 
 	server := &http.Server{
-		Addr:    ":3000",
+		Addr:    ":3001",
 		Handler: router,
 	}
 
@@ -25,6 +25,12 @@ func main() {
 	}
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func basicHandler(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+
 	w.Write([]byte("Hello, world!"))
 }
